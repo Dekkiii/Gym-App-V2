@@ -1,0 +1,91 @@
+import React, { useContext, useState } from 'react';
+import { ScrollView, SafeAreaView, View, Text } from 'react-native';
+import { Button, Card, TextInput } from 'react-native-paper';
+import { AuthContext } from '../../../Context/authContext';
+import { loginStyle } from './login.style';
+import axios from 'axios';
+
+export const ProfileScreen = ({ navigation }) => {
+  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('');
+  const [age, setAge] = useState('');
+  const [state] = useContext(AuthContext);
+  const [bmi, setBMI] = useState(null);
+  const [goal, setGoal] = useState('');
+
+  const calculateBMI = () => {
+    const weightInKg = parseFloat(weight);
+    const heightInM = parseFloat(height) / 100;
+    const ageValue = parseInt(age);
+
+    if (weightInKg && heightInM && ageValue) {
+      const bmiValue = weightInKg / (heightInM * heightInM);
+      setBMI(bmiValue.toFixed(2));
+
+      if (bmiValue < 18.5) {
+        setGoal('Gain Weight');
+      } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
+        setGoal('Maintain Weight');
+      } else {
+        setGoal('Lose Weight');
+      }
+    }
+  };
+
+  const handleSubmit = async () => {
+    calculateBMI();
+    // Your form submission logic here
+    // navigation.navigate('Profile');
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={{ flex: 1 }}>
+          <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 20 }}>
+            Welcome {state.firstname}!
+          </Text>
+          <Card.Title />
+          <Card.Content>
+            <TextInput
+              label="Weight"
+              value={weight}
+              onChangeText={(text) => setWeight(text)}
+            />
+            <TextInput
+              label="Height"
+              value={height}
+              onChangeText={(text) => setHeight(text)}
+            />
+            <TextInput
+              label="Age"
+              value={age}
+              onChangeText={(text) => setAge(text)}
+            />
+
+            <Button
+              mode="contained"
+              style={loginStyle.loginButton}
+              onPress={handleSubmit}
+            >
+              Input
+            </Button>
+
+            {bmi && (
+              <View>
+                <Text style={{ fontSize: 18, marginTop: 10 }}>
+                  Your BMI: {bmi}
+                </Text>
+                <Text style={{ fontSize: 18, marginTop: 10 }}>
+                  Suggestion: {goal}
+                </Text>
+              </View>
+            )}
+          </Card.Content>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default ProfileScreen;
