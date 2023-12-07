@@ -25,7 +25,12 @@ import {Squatsensor} from './screen/Sensor/squatsensor';
 import {Dumbellsensor} from './screen/Sensor/dumbellsensor';
 import {Foryoumenuscreen} from './screen/Foryoumenu/foryoumenuscreen';
 import { Ionicons } from '@expo/vector-icons'; 
-
+import Recipestepscard from './Content/Recipestepscard';
+import RecipeIngridients from './Content/Recipeingridientscard';
+import Recipesnutritions from './Content/Recipenutritioncard';
+import { ProfileProvider } from '../Context/profileinfocontext';
+import { RecipeInformationProvider } from '../Context/recipeinformationcontext';
+import { SuggestionProvider } from '../Context/foryourecipeContext';
 
 
 
@@ -54,15 +59,6 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
-      name="For you" // Change to a unique name like "MenuTab"
-      component={Foryoumenuscreen}
-      options={{
-        tabBarIcon: ({ color, size }) => (
-          <Ionicons name="menu" color={color} size={size} />
-        ),
-      }}
-    />
-      <Tab.Screen
         name="Menu" // Change to a unique name like "MenuTab"
         component={Menuscreen}
         options={{
@@ -80,7 +76,10 @@ export const AppNavigator = ({ navigation }) => {
   return (
     <AuthProvider>
     <NavigationContainer initialRouteName="Splashscreen">
-        <RecipeProvider>
+        <ProfileProvider>
+        <RecipeInformationProvider>
+        {/* <SuggestionProvider> */}
+        <RecipeProvider>        
           <ExerciseProvider>
             <Stack.Navigator>
             <Stack.Screen options={{headerTitle: 'Test', headerShown: false}}name ='Splashscreen' component={SplashScreen}/>
@@ -89,12 +88,14 @@ export const AppNavigator = ({ navigation }) => {
             <Stack.Screen options={{headerTitle: 'Test', headerShown: false}} name="Register" component={Registerscreen} />
             <Stack.Screen options={{headerTitle: 'Information', headerShown: true}} name ='Information' component={Informationscreen}/>
             <Stack.Screen options={{headerTitle: 'Recipe Details', headerShown: true}} name ='RecipeDetails' component={RecipeDetails}/>
+            <Stack.Screen options={{headerTitle: 'Nutrition', headerShown: true}} name ='RecipeNutrition' component={Recipesnutritions}/>
             <Stack.Screen options={{headerTitle: 'Exercise Details', headerShown: true}} name ='ExerciseDetails' component={ExerciseDetails}/>
             <Stack.Screen options={{headerTitle: 'About', headerShown: true}}name ='Abouts' component={HomeTabs}/>
             <Stack.Screen options={{headerTitle: 'Contact', headerShown: true}}name ='Contacts' component={Contactscreen}/>
             <Stack.Screen options={{headerTitle: 'Menu', headerShown: false}}name ='Menu' component={HomeTabs}/>
-            <Stack.Screen options={{headerTitle: 'Foryoumenuscren', headerShown: false}}name ='Foryoumenuscren' component={HomeTabs}/>
             <Stack.Screen options={{headerTitle: 'Recipes', headerShown: true}}name ='Recipescreen' component={Recipescreen}/>
+            <Stack.Screen options={{headerTitle: 'Steps', headerShown: true}}name ='RecipeSteps' component={Recipestepscard}/>
+            <Stack.Screen options={{headerTitle: 'Ingredients', headerShown: true}}name ='RecipeIngridients' component={RecipeIngridients}/>
             <Stack.Screen options={{headerTitle: 'Exercises', headerShown: true}}name ='Exercisescreen' component={Exercisescreen}/>
             <Stack.Screen options={{headerTitle: 'Pose Recognition', headerShown: true}}name ='Squatsensor' component={Squatsensor}/>
             <Stack.Screen options={{headerTitle: 'Pose Recognition Menu', headerShown: true}}name ='Sensormenu' component={Sensormenu}/>
@@ -106,6 +107,9 @@ export const AppNavigator = ({ navigation }) => {
             </Stack.Navigator>
           </ExerciseProvider>
         </RecipeProvider>
+        {/* </SuggestionProvider> */}
+        </RecipeInformationProvider>
+        </ProfileProvider>
     </NavigationContainer>
     </AuthProvider>
   );

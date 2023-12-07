@@ -30,7 +30,7 @@ export const Menuscreen = ({navigation, route }) => {
       <Paragraph>Pose Detection for different exercises</Paragraph>
     </Card.Content>
     <Card.Actions>
-    <Button onPress={() => navigation.navigate('Sensormenu')}>Go</Button>
+    <Button onPress={() => navigation.navigate('Information')}>Go</Button>
     </Card.Actions>
     </Card>
 

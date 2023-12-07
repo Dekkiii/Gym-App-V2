@@ -7,6 +7,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 export const ProfileScreen = ({ navigation, route }) => {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -27,7 +28,7 @@ export const ProfileScreen = ({ navigation, route }) => {
     const fetchData = async () => {
       try {
         // Fetch existing data based on userId
-        const { data } = await axios.get('http:10.0.2.2:3000/getProfile', {
+        const { data } = await axios.get('https://serverrrr-3kbl.onrender.com/getProfile', {
           params: { userId },
         });
 
@@ -131,15 +132,16 @@ export const ProfileScreen = ({ navigation, route }) => {
     setIsDropdownDisabled(true);
     setIsEditMode(false);
   };
+
   const handleSaveOrUpdate = async () => {
     try {
       setLoading(true);
-  
+
       if (!validateInputs()) {
         setLoading(false);
         return;
       }
-  
+
       const requestData = {
         userId: userId,
         age: parseInt(age),
@@ -148,15 +150,15 @@ export const ProfileScreen = ({ navigation, route }) => {
         bmi: parseFloat(bmi),
         goal: selectedGoal,
       };
-  
+
       console.log('Request Data:', requestData);
-  
-      const { data } = await axios.post('http:10.0.2.2:3000/bmiposting', requestData);
-  
+
+      const { data } = await axios.post('https://serverrrr-3kbl.onrender.com/bmiposting', requestData);
+
       if (data.success === true) {
         alert(data && data.message);
         console.log('Information Submitted/Updated:', requestData);
-  
+
         // Set isEditMode to true and fetch data again to recheck if there is information
         setIsEditMode(true);
         fetchData();
@@ -206,6 +208,7 @@ export const ProfileScreen = ({ navigation, route }) => {
       console.error('Error logging out:', error);
     }
   };
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

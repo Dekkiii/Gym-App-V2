@@ -154,6 +154,21 @@ app.get('/recipes', async (req, res) => {
   }
 });
 
+
+app.get('/recipeinfo', async (req, res) => {
+  try {
+    const recipesInfo = await prisma.nutrition.findMany();
+
+    console.log('Recipe information sent:', recipesInfo);
+    return res.status(200).json({ recipeinfo : recipesInfo });
+  } catch (error) {
+    console.error('Error fetching recipes:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 app.get('/exerciseinformation', async (req, res) => {
   try {
     const exerciseinformations = await prisma.exerciseinformation.findMany(); 
@@ -170,25 +185,27 @@ app.get('/getProfile', async (req, res) => {
 
     if (!userId) {
       console.log('Received data:', { userId });
-      return res.status(400).send({ error: 'userId parameter is missing' });
+      return res.status(400).json({ error: 'userId parameter is missing' });
     }
 
-    const profileinfo = await prisma.profile.findUnique({
+    const profileInfo = await prisma.profile.findUnique({
       where: {
         id: userId,
       },
     });
 
-    if (!profileinfo) {
-      return res.status(404).send({ success: false, error: 'Profile not found' });
+    if (!profileInfo) {
+      console.log('Profile not found for userId:', userId);
+      return res.status(404).json({ success: false, error: 'Profile not found' });
     }
 
-    console.log(profileinfo, userId);
+    console.log('Profile information sent:', profileInfo);
+    // Modify your /getProfile endpoint
+      return res.status(200).json({ profile: profileInfo });
 
-    return res.status(200).send({ success: true, profileinfo });
   } catch (error) {
     console.error('Error fetching profile:', error);
-    res.status(500).send({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
