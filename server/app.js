@@ -260,7 +260,7 @@ app.post('/bmiposting', [
           goal,
         },
       });
-
+      
       return res.status(200).send({ success: true, message: 'Information Updated' });
     } else {
       // Profile with the given userId does not exist; create a new one

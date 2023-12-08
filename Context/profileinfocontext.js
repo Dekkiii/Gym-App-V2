@@ -20,8 +20,6 @@ const ProfileProvider = ({ children }) => {
       });
       setProfile(data.profile);
       console.log("Profile Information:", data.profile);
-      
-      // Log the received profile information
     } catch (error) {
       console.log(error);
       setLoading(false);
@@ -35,8 +33,13 @@ const ProfileProvider = ({ children }) => {
     }
   }, [userId]); // Fetch profile information when userId changes
 
+  const updateProfileInformation = async () => {
+    // Call this function to update the profile information
+    await getProfileInformation();
+  };
+
   return (
-    <ProfileContext.Provider value={[profile, setProfile, getProfileInformation]}>
+    <ProfileContext.Provider value={[profile, setProfile, getProfileInformation, updateProfileInformation]}>
       {children}
     </ProfileContext.Provider>
   );

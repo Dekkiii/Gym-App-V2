@@ -21,11 +21,11 @@ export const Informationscreen = ({ navigation }) => {
         const filteredRecipes = recipeInformation.filter((recipe) => {
           const calories = parseInt(recipe.calories);
 
-          if (goal === "GW" && calories > 250) {
+          if (goal === "GW" && calories > 500) {
             return true;
-          } else if (goal === "LS" && calories < 150) {
+          } else if (goal === "LW" && calories < 300) {
             return true;
-          } else if (goal === "MW" && calories >= 150 && calories <= 250) {
+          } else if (goal === "MW" && calories >= 300 && calories <= 500) {
             return true;
           }
 

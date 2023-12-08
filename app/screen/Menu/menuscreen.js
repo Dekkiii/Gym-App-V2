@@ -15,14 +15,25 @@ export const Menuscreen = ({navigation, route }) => {
     <Card style={Menustyle.card1}>
     <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/Fitnessbuddy.png')}/>
     <Card.Content>
-      <Title>Food Recipe</Title>
+      <Title>Dietary Food Recipes</Title>
       <Paragraph>Free healthy food recipe for Your fitness journey!</Paragraph>
     </Card.Content>
     <Card.Actions>
       <Button onPress={() => navigation.navigate('Recipescreen')}>Go</Button>
     </Card.Actions>
-    
      </Card>
+
+     <Card style={Menustyle.card1}>
+    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/Fitnessbuddy.png')}/>
+    <Card.Content>
+      <Title>Suggested Dietary Foods For You</Title>
+      <Paragraph>Free healthy food recipe for Your fitness journey!</Paragraph>
+    </Card.Content>
+    <Card.Actions>
+      <Button onPress={() => navigation.navigate('FYRecipescreen')}>Go</Button>
+    </Card.Actions>
+     </Card>
+
     <Card style={Menustyle.card1}>
     <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/COVER3.png')}/>
     <Card.Content>

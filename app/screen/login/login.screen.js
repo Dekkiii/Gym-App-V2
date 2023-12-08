@@ -118,12 +118,8 @@ export const Loginscreen = ({ navigation }) => {
               Register
             </Button>
 
-            {/* Display the stored user ID */}
-            {userData && (
-            <Text style={loginStyle.userTokenText}>
-              Stored User Token: {userData.token}
-            </Text>
-          )}
+          
+          
           </Card.Content>
         </Card>
       </View>

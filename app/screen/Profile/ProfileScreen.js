@@ -6,7 +6,7 @@ import { loginStyle } from './login.style';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {ProfileContext} from '../../../Context/profileinfocontext';
 
 export const ProfileScreen = ({ navigation, route }) => {
   const [weight, setWeight] = useState('');
@@ -23,6 +23,7 @@ export const ProfileScreen = ({ navigation, route }) => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [existingData, setExistingData] = useState(null);
   const [isNewProfile, setIsNewProfile] = useState(false);
+  const [, , , updateProfileInformation] = useContext(ProfileContext);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -158,7 +159,15 @@ export const ProfileScreen = ({ navigation, route }) => {
       if (data.success === true) {
         alert(data && data.message);
         console.log('Information Submitted/Updated:', requestData);
+        await updateProfileInformation();
 
+        // Call the function to update the profile information
+        
+        useEffect(() => {
+          // Check if userId exists before making the API call
+            getProfileInformation();     
+        });
+  
         // Set isEditMode to true and fetch data again to recheck if there is information
         setIsEditMode(true);
         fetchData();

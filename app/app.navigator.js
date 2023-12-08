@@ -30,8 +30,8 @@ import RecipeIngridients from './Content/Recipeingridientscard';
 import Recipesnutritions from './Content/Recipenutritioncard';
 import { ProfileProvider } from '../Context/profileinfocontext';
 import { RecipeInformationProvider } from '../Context/recipeinformationcontext';
-import { SuggestionProvider } from '../Context/foryourecipeContext';
-
+import {FYRecipescreen} from './screen/Foryourecipe/foryourecipescreen'
+import {RecipedetailsProvider} from '../Context/recipedetailsContext';
 
 
 const Stack = createStackNavigator();
@@ -78,7 +78,7 @@ export const AppNavigator = ({ navigation }) => {
     <NavigationContainer initialRouteName="Splashscreen">
         <ProfileProvider>
         <RecipeInformationProvider>
-        {/* <SuggestionProvider> */}
+        <RecipedetailsProvider>
         <RecipeProvider>        
           <ExerciseProvider>
             <Stack.Navigator>
@@ -94,6 +94,7 @@ export const AppNavigator = ({ navigation }) => {
             <Stack.Screen options={{headerTitle: 'Contact', headerShown: true}}name ='Contacts' component={Contactscreen}/>
             <Stack.Screen options={{headerTitle: 'Menu', headerShown: false}}name ='Menu' component={HomeTabs}/>
             <Stack.Screen options={{headerTitle: 'Recipes', headerShown: true}}name ='Recipescreen' component={Recipescreen}/>
+            <Stack.Screen options={{headerTitle: 'Recipe For You', headerShown: true}}name ='FYRecipescreen' component={FYRecipescreen}/>
             <Stack.Screen options={{headerTitle: 'Steps', headerShown: true}}name ='RecipeSteps' component={Recipestepscard}/>
             <Stack.Screen options={{headerTitle: 'Ingredients', headerShown: true}}name ='RecipeIngridients' component={RecipeIngridients}/>
             <Stack.Screen options={{headerTitle: 'Exercises', headerShown: true}}name ='Exercisescreen' component={Exercisescreen}/>
@@ -107,7 +108,7 @@ export const AppNavigator = ({ navigation }) => {
             </Stack.Navigator>
           </ExerciseProvider>
         </RecipeProvider>
-        {/* </SuggestionProvider> */}
+        </RecipedetailsProvider>
         </RecipeInformationProvider>
         </ProfileProvider>
     </NavigationContainer>
