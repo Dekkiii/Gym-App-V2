@@ -25,13 +25,17 @@ import {Squatsensor} from './screen/Sensor/squatsensor';
 import {Dumbellsensor} from './screen/Sensor/dumbellsensor';
 import {Foryoumenuscreen} from './screen/Foryoumenu/foryoumenuscreen';
 import { Ionicons } from '@expo/vector-icons'; 
-import Recipestepscard from './Content/Recipestepscard';
-import RecipeIngridients from './Content/Recipeingridientscard';
-import Recipesnutritions from './Content/Recipenutritioncard';
+import { RecipeSteps } from './screen/Recipe/recipesteps';
+import { RecipeIngridients } from './screen/Recipe/recipeingridients';
+import { RecipeNutrition } from './screen/Recipe/recipenutrition';
 import { ProfileProvider } from '../Context/profileinfocontext';
 import { RecipeInformationProvider } from '../Context/recipeinformationcontext';
-import {FYRecipescreen} from './screen/Foryourecipe/foryourecipescreen'
-import {RecipedetailsProvider} from '../Context/recipedetailsContext';
+import { FYRecipescreen } from './screen/Foryourecipe/foryourecipescreen'
+import { RecipedetailsProvider } from '../Context/recipedetailsContext';
+import { FYRecipeDetails } from './screen/Foryourecipe/foryourecipedetails';
+import { FYRecipeNutrition } from './screen/Foryourecipe/foryourecipenutrition';
+import { FYRecipeIngridients } from './screen/Foryourecipe/foryourecipeingridients';
+import { FYRecipeSteps } from './screen/Foryourecipe/foryourecipesteps';
 
 
 const Stack = createStackNavigator();
@@ -43,7 +47,7 @@ const HomeTabs = () => {
       <Tab.Screen
         name="Home" // Change to a unique name like "HomeTab"
         component={Homescreen}
-        options={{
+        options={{headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
@@ -52,7 +56,7 @@ const HomeTabs = () => {
       <Tab.Screen
         name="Profile screen" // Change to a unique name like "AboutTab"
         component={ProfileScreen}
-        options={{
+        options={{headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="information-circle" color={color} size={size} />
           ),
@@ -61,7 +65,7 @@ const HomeTabs = () => {
       <Tab.Screen
         name="Menu" // Change to a unique name like "MenuTab"
         component={Menuscreen}
-        options={{
+        options={{headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="menu" color={color} size={size} />
           ),
@@ -88,15 +92,17 @@ export const AppNavigator = ({ navigation }) => {
             <Stack.Screen options={{headerTitle: 'Test', headerShown: false}} name="Register" component={Registerscreen} />
             <Stack.Screen options={{headerTitle: 'Information', headerShown: true}} name ='Information' component={Informationscreen}/>
             <Stack.Screen options={{headerTitle: 'Recipe Details', headerShown: true}} name ='RecipeDetails' component={RecipeDetails}/>
-            <Stack.Screen options={{headerTitle: 'Nutrition', headerShown: true}} name ='RecipeNutrition' component={Recipesnutritions}/>
+            <Stack.Screen options={{headerTitle: 'Recipe Details', headerShown: true}} name ='FYRecipeDetails' component={FYRecipeDetails}/>
+            <Stack.Screen options={{headerTitle: 'Nutrition', headerShown: true}} name ='RecipeNutrition' component={RecipeNutrition}/>
+            <Stack.Screen options={{headerTitle: 'Nutrition', headerShown: true}} name ='FYRecipeNutrition' component={FYRecipeNutrition}/>
             <Stack.Screen options={{headerTitle: 'Exercise Details', headerShown: true}} name ='ExerciseDetails' component={ExerciseDetails}/>
             <Stack.Screen options={{headerTitle: 'About', headerShown: true}}name ='Abouts' component={HomeTabs}/>
             <Stack.Screen options={{headerTitle: 'Contact', headerShown: true}}name ='Contacts' component={Contactscreen}/>
             <Stack.Screen options={{headerTitle: 'Menu', headerShown: false}}name ='Menu' component={HomeTabs}/>
             <Stack.Screen options={{headerTitle: 'Recipes', headerShown: true}}name ='Recipescreen' component={Recipescreen}/>
             <Stack.Screen options={{headerTitle: 'Recipe For You', headerShown: true}}name ='FYRecipescreen' component={FYRecipescreen}/>
-            <Stack.Screen options={{headerTitle: 'Steps', headerShown: true}}name ='RecipeSteps' component={Recipestepscard}/>
-            <Stack.Screen options={{headerTitle: 'Ingredients', headerShown: true}}name ='RecipeIngridients' component={RecipeIngridients}/>
+            <Stack.Screen options={{headerTitle: 'Steps', headerShown: true}}name ='RecipeSteps' component={RecipeSteps}/>
+            <Stack.Screen options={{headerTitle: 'Steps', headerShown: true}}name ='FYRecipeSteps' component={FYRecipeSteps}/>
             <Stack.Screen options={{headerTitle: 'Exercises', headerShown: true}}name ='Exercisescreen' component={Exercisescreen}/>
             <Stack.Screen options={{headerTitle: 'Pose Recognition', headerShown: true}}name ='Squatsensor' component={Squatsensor}/>
             <Stack.Screen options={{headerTitle: 'Pose Recognition Menu', headerShown: true}}name ='Sensormenu' component={Sensormenu}/>
@@ -105,6 +111,8 @@ export const AppNavigator = ({ navigation }) => {
             <Stack.Screen   options={{ headerTitle: 'Test', headerShown: false }}  name="Dumbellsensor" component={Dumbellsensor}   />
 <Stack.Screen options={{headerTitle: 'Test', headerShown: false}}name ='BMI' component={Bmiscreen}/>
 <Stack.Screen name="Profile" component={HomeTabs} options={{ headerTitle: 'Profile' }}/>
+<Stack.Screen options={{ headerTitle: 'Recipe Ingridients', headerShown: true }} name="RecipeIngridients" component={RecipeIngridients}/> 
+<Stack.Screen options={{ headerTitle: 'Recipe Ingridients', headerShown: true }} name="FYRecipeIngridients" component={FYRecipeIngridients}/> 
             </Stack.Navigator>
           </ExerciseProvider>
         </RecipeProvider>

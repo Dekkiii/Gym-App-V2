@@ -233,13 +233,13 @@ export const ProfileScreen = ({ navigation, route }) => {
             <Card.Title />
             <Card.Content>
             <TextInput
-  label="Weight"
+  label="Weight (KG)"
   value={weight}
   onChangeText={(text) => setWeight(text)}
   editable={isEditMode || isNewProfile} // Allow editing in edit mode or for a new profile
 />
 <TextInput
-  label="Height"
+  label="Height (CM)"
   value={height}
   onChangeText={(text) => setHeight(text)}
   editable={isEditMode || isNewProfile}

@@ -11,12 +11,12 @@ const RecipeInformationProvider = ({ children }) => {
     setLoading(true);
     try {
       // Make API call to get recipe information
-      const { data } = await axios.get('http://10.0.2.2:3000/recipeinfo');
+      const { data } = await axios.get("https://serverrrr-3kbl.onrender.com/nutrition");
       setLoading(false);
-      setRecipeInformation(data.recipeinfo);
+      setRecipeInformation(data.nutritions);
 
       // Log the received recipe information
-      console.log("Recipe Information:", data.recipeinfo);
+      console.log("Recipe Informations22:", data.nutritions);
     } catch (error) {
       console.log(error);
       setLoading(false);

@@ -66,11 +66,26 @@ height: '100%',
         
       },
       card1:{
-       
         margin:20,
         backgroundColor: "#FF8D29",
         width: 300
       },
+      
+      menucard1:{
+        padding: 0,
+        margin:20
+      },
+      menucard2:{
+        padding: 0,
+        margin:20,
+        marginBottom:150
+      },
+    menucardButton: {
+        margin: 1,
+      
+    },mencardcover:{
+        
+    },
       cardcover:{
         
       },
@@ -99,7 +114,32 @@ height: '100%',
       backgroundColor: "#F6FBF4",
      
       bottom:0,
-  }
-    
+  },
+  titleText: {
+    marginBottom: 15,
+    borderRadius: 0,
+    backgroundColor: "#FF8D29",
+    color: "#242F9B",
+    textAlign: "center",
+    padding: 10,
+    fontSize: 20,
+  },
+  menuContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menucard: {
+    backgroundColor: "#FF8D29",
+    width: (Dimensions.get('window').width - cardGap * 3) / 2,
+    height: 180,
+    margin: cardGap / 2,
+    borderRadius: 16,
+    shadowOpacity: 0.2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  menucardText: {
+    color: 'white',
+  },
     
 })

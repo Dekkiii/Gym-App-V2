@@ -15,7 +15,7 @@ import { Aboutstyle } from "./about.style";
 import { Card, TextInput,Button,Title,Paragraph} from 'react-native-paper';
 import { RecipeInformationContext } from '../../../Context/recipeinformationcontext';
 import { RecipedetailsContext } from '../../../Context/recipedetailsContext';
-
+import FYRecipenutritioncard from "../../Content/FYRecipenutritioncard";
 export const FYRecipeNutrition = ({navigation, route}) => {
   const [recipes] = useContext(RecipeContext);
   const [loading, setLoading]= useState(false);
@@ -26,20 +26,21 @@ export const FYRecipeNutrition = ({navigation, route}) => {
   const [recipeInformation] = useContext(RecipedetailsContext);
   const recipenutritioninfo = recipenutrition;
   const recipedetails = recipeInformation;
-  const selectedRecipess = selectedrecipe.find((recipedetails) => recipedetails.id === recipeId);
-  const recipenutritions = selectednutrition.find((recipenutritioninfo) => recipenutritioninfo.id === recipeId);
+
+  const selectedRecipess = recipedetails.find((recipeinformations) => recipeinformations.id === recipeId);
+  const recipenutritions = recipenutritioninfo.find((nutritions) => nutritions.id === recipeId);
   //global state
   return (
       <View style={Aboutstyle.content}>
          <Card >
      <Card.Actions  style={Aboutstyle.card}>
-     <Button onPress={() => navigation.navigate('RecipeDetails', { recipeId })}>Description</Button>
-     <Button onPress={() => navigation.navigate('RecipeIngridients', { recipeId })}>Ingridients</Button>
-     <Button onPress={() => navigation.navigate('RecipeSteps', { recipeId })}>Steps</Button>
-     <Button onPress={() => navigation.navigate('RecipeNutrition', { recipeId })}>Nutrition</Button>
+     <Button onPress={() => navigation.navigate('FYRecipeDetails', { recipeId })}>Description</Button>
+     <Button onPress={() => navigation.navigate('FYRecipeIngridients', { recipeId })}>Ingridients</Button>
+     <Button onPress={() => navigation.navigate('FYRecipeSteps', { recipeId })}>Steps</Button>
+     <Button onPress={() => navigation.navigate('FYRecipeNutrition', { recipeId })}>Nutrition</Button>
   </Card.Actions>
   </Card>
-      <Recipenutritioncard recipeId = {recipeId} nutrition = {recipenutritions} recipeinformations = {selectedRecipess} />
+      <FYRecipenutritioncard recipeId = {recipeId} nutrition = {recipenutritions} recipeinformations = {selectedRecipess} />
       
     <View style={{ backgroundColor: "#ffffff" }}>
     </View>

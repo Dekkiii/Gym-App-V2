@@ -13,10 +13,10 @@ export const Menuscreen = ({navigation, route }) => {
    
    <ScrollView>
     <Card style={Menustyle.card1}>
-    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/Fitnessbuddy.png')}/>
+    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/Allrecipe.png')}/>
     <Card.Content>
       <Title>Dietary Food Recipes</Title>
-      <Paragraph>Free healthy food recipe for Your fitness journey!</Paragraph>
+      <Paragraph>Free Dietary Recipe for your fitness journey!</Paragraph>
     </Card.Content>
     <Card.Actions>
       <Button onPress={() => navigation.navigate('Recipescreen')}>Go</Button>
@@ -24,10 +24,10 @@ export const Menuscreen = ({navigation, route }) => {
      </Card>
 
      <Card style={Menustyle.card1}>
-    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/Fitnessbuddy.png')}/>
+    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/SuggetedRecipe.png')}/>
     <Card.Content>
       <Title>Suggested Dietary Foods For You</Title>
-      <Paragraph>Free healthy food recipe for Your fitness journey!</Paragraph>
+      <Paragraph>Suggested Dietary Recipe based on your goal!</Paragraph>
     </Card.Content>
     <Card.Actions>
       <Button onPress={() => navigation.navigate('FYRecipescreen')}>Go</Button>
@@ -35,13 +35,13 @@ export const Menuscreen = ({navigation, route }) => {
      </Card>
 
     <Card style={Menustyle.card1}>
-    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/COVER3.png')}/>
+    <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`} source={require('./asset/proj2.png')}/>
     <Card.Content>
       <Title>Pose Detection</Title>
       <Paragraph>Pose Detection for different exercises</Paragraph>
     </Card.Content>
     <Card.Actions>
-    <Button onPress={() => navigation.navigate('Information')}>Go</Button>
+    <Button onPress={() => navigation.navigate('Sensormenu')}>Go</Button>
     </Card.Actions>
     </Card>
 

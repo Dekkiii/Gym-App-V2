@@ -61,7 +61,7 @@ export const FYRecipescreen = ({navigation, route}) => {
       {suggestedRecipes.map((suggestedrecipe) => (
         <Card TouchableOpacity
         key={suggestedrecipe.id}
-        onPress={() => navigation.navigate('RecipeDetails',{recipeId : suggestedrecipe.id})} style={Menustyle.card1}
+        onPress={() => navigation.navigate('FYRecipeDetails',{recipeId : suggestedrecipe.id})} style={Menustyle.card1}
         >
             
               <Card.Cover style={Menustyle.cardcover} resizeMode={`cover`}  source={{ uri: suggestedrecipe.image }}/>

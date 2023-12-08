@@ -1,37 +1,34 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
 
-//context
+// Context
 const RecipedetailsContext = createContext();
 
 const RecipedetailsProvider = ({ children }) => {
-  //state
+  // State
   const [loading, setLoading] = useState(false);
   const [recipesdetails, setRecipesdetails] = useState([]);
-  const [recipeinformation, setRecipeinformation] = useState([]);
-  
 
-
-  //get posts
+  // Get posts
   const getAllRecipedetails = async () => {
+    console.log("Fetching recipe details..."); // Add this line
     setLoading(true);
     try {
       const { data } = await axios.get("https://serverrrr-3kbl.onrender.com/recipesinformation");
       setLoading(false);
-      setRecipesdetails(data.recipes);
+      setRecipesdetails(data.recipeinformations);
+     // Add this line
     } catch (error) {
-      console.log(error);
+      console.log("Error fetching recipe details:", error); // Add this line
       setLoading(false);
     }
   };
-  
 
-  // inintal  posts
+  // Initial posts
   useEffect(() => {
     getAllRecipedetails();
   }, []);
 
-  
   return (
     <RecipedetailsContext.Provider value={[recipesdetails, setRecipesdetails, getAllRecipedetails]}>
       {children}
