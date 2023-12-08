@@ -1,6 +1,6 @@
-import{ StyleSheet } from "react-native";
-
-
+import{ StyleSheet, Dimensions  } from "react-native";
+const cardGap = 16;
+const cardWidth = (Dimensions.get('window').width - cardGap * 3) / 2;
 export const Homestyle = StyleSheet.create({
     content: {
       

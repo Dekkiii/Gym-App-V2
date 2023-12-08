@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { SafeAreaView,Dimensions, ScrollView, View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { Card } from 'react-native-paper';
 import { Homestyle } from './home.style';
 import { AuthContext } from '../../../Context/authContext';
