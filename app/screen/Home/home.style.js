@@ -66,9 +66,8 @@ height: '100%',
         
       },
       card1:{
-        margin:20,
+        margin:2,
         backgroundColor: "#FF8D29",
-        width: 300
       },
       
       menucard1:{
@@ -87,7 +86,8 @@ height: '100%',
         
     },
       cardcover:{
-        
+        width:180,
+       height:180
       },
       card:{
      flexDirection:"row"
@@ -124,22 +124,49 @@ height: '100%',
     padding: 10,
     fontSize: 20,
   },
+
+  
+ 
   menuContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: cardGap, // Add space at the top
   },
+
   menucard: {
-    backgroundColor: "#FF8D29",
-    width: (Dimensions.get('window').width - cardGap * 3) / 2,
-    height: 180,
+    margin:2,
+    backgroundColor: '#FF8D29',
+    width: cardWidth,
+    height: 220, // Increase the height to accommodate the image and provide space
     margin: cardGap / 2,
     borderRadius: 16,
     shadowOpacity: 0.2,
+   overflow:'hidden',  // Ensure content overflow is hidden
+  },
+
+  menucardCover: {
+    margin: 5, // Ensure the cover takes the full width of the card
+    height: '50%', // Adjust the height based on your preference
+    borderRadius: 16,
+  },
+
+  menucardContent: {
+    padding: 10, // Add padding for content
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   menucardText: {
     color: 'white',
+    textAlign: 'center',
   },
-    
+  menucardTitle: {
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  
+  menucardParagraph: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
 })

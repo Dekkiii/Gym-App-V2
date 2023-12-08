@@ -62,15 +62,6 @@ const HomeTabs = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="Menu" // Change to a unique name like "MenuTab"
-        component={Menuscreen}
-        options={{headerShown: false,
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="menu" color={color} size={size} />
-          ),
-        }}
-      />
     </Tab.Navigator>
   );
 };
