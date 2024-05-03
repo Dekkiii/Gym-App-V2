@@ -27,6 +27,7 @@ export const Sensormenu = ({ navigation, route }) => {
                 onPress={() =>
                   navigation.navigate(exercise.exercise === 'Squat' ? 'Squatsensor' :
                   exercise.exercise === 'Dumbell Curls' ? 'Dumbellsensor' :
+                  exercise.exercise === 'Lunges' ? 'Lungesensor' :
                    'Squatsensor')
                 }
                 style={Menustyle.card1}

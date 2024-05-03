@@ -16,6 +16,30 @@ export const Loginscreen = ({ navigation }) => {
   const [loading, setLoading] = useState('false');
   const [showPassword, setShowPassword] = useState(false);
 
+  useEffect(() => {
+    const checkUserStatus = async () => {
+      try {
+        let storedUserData = await AsyncStorage.getItem("@auth"); 
+        
+        console.log("Stored Token:", storedUserData);
+    
+        if (storedUserData) {
+          console.log("Token found, navigating to 'Homes'");
+          setState((prevState) => ({ ...prevState, token: storedUserData }));
+          navigation.replace("Homes");
+        } else {
+          console.log("Token not found, navigating to 'Login'");
+          navigation.replace("Login");
+        }
+      } catch (error) {
+        console.error("Error checking user status:", error);
+        navigation.replace("Login");
+      }
+    };
+
+    checkUserStatus();
+  }, []);
+  
   const handleLogin = async () => {
     try {
       setLoading(true);
@@ -50,7 +74,7 @@ export const Loginscreen = ({ navigation }) => {
 
   const getStoredUserData = async () => {
     // Get user data from AsyncStorage
-    let storedUserData = await AsyncStorage.getItem("@auth");
+   let storedUserData = await AsyncStorage.getItem("@auth"); 
     console.log("Stored User Data ==>", storedUserData);
 
     // If there is user data, parse it and set the userData state

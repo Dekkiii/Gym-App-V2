@@ -3,7 +3,6 @@ const cardGap = 16;
 const cardWidth = (Dimensions.get('window').width - cardGap * 3) / 2;
 export const Homestyle = StyleSheet.create({
     content: {
-      
       padding: 0,
         flex: 1,
         backgroundColor: "#354259",
@@ -169,4 +168,12 @@ height: '100%',
     fontSize: 12,
     textAlign: 'center',
   },
+  titleheader: {
+fontSize: 28,
+color:'black',
+  },
+  row: {
+  flexDirection:'row',
+  alignItems:'center',
+      },
 })

@@ -10,13 +10,13 @@ const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const checkUserStatus = async () => {
       try {
-        const storedToken = await AsyncStorage.getItem("@auth:token");
+        let storedUserData = await AsyncStorage.getItem("@auth"); 
         
-        console.log("Stored Token:", storedToken);
+        console.log("Stored Token:", storedUserData);
     
-        if (storedToken) {
+        if (storedUserData) {
           console.log("Token found, navigating to 'Homes'");
-          setState((prevState) => ({ ...prevState, token: storedToken }));
+          setState((prevState) => ({ ...prevState, token: storedUserData }));
           navigation.replace("Homes");
         } else {
           console.log("Token not found, navigating to 'Login'");

@@ -1,70 +1,82 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { FlatList, SafeAreaView, View, Text, Alert } from 'react-native';
-import { Button, Card, TextInput } from 'react-native-paper';
-import { AuthContext } from '../../../Context/authContext';
-import { loginStyle } from './login.style';
+import { Button, Card, TextInput, RadioButton } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ProfileContext} from '../../../Context/profileinfocontext';
-
+import { AuthContext } from '../../../Context/authContext';
+import { loginStyle } from './login.style';
+import { ProfileContext } from '../../../Context/profileinfocontext';
 export const ProfileScreen = ({ navigation, route }) => {
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
   const [age, setAge] = useState('');
+  const [gender, setGender] = useState('male');
+  const [activityLevel, setActivityLevel] = useState('sedentary');
   const [state, setState] = useContext(AuthContext);
   const [bmi, setBMI] = useState(null);
   const [selectedGoal, setSelectedGoal] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const userId = state.userId;
+  const [isGoalOpen, setIsGoalOpen] = useState(isNewProfile || isEditMode);  // Updated
+const [isActivityLevelOpen, setIsActivityLevelOpen] = useState(isNewProfile || isEditMode);  // Updated
+const [isGenderOpen, setisGenderopen] = useState(isNewProfile || isEditMode);
+const [isGenderRadioButtonDisabled, setIsGenderRadioButtonDisabled] = useState(true);
+const userId = state?.user?.id;
   const [currentValue, setCurrentValue] = useState();
-  const [isDropdownDisabled, setIsDropdownDisabled] = useState(true);
+  const [isDropdownDisabled, setIsDropdownDisabled] = useState(isNewProfile || isEditMode);
   const [loading, setLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [existingData, setExistingData] = useState(null);
   const [isNewProfile, setIsNewProfile] = useState(false);
   const [, , , updateProfileInformation] = useContext(ProfileContext);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Fetch existing data based on userId
-        const { data } = await axios.get('https://serverrrr-3kbl.onrender.com/getProfile', {
-          params: { userId },
-        });
+      
+      const { data } = await axios.get('https://serverrrr-3kbl.onrender.com/getProfile', {
+        params: { userId },
+      });
 
-        if (data.success) {
-          const profileData = data.profileinfo;
-          if (profileData) {
-            setWeight(profileData.weight.toString());
-            setHeight(profileData.height.toString());
-            setAge(profileData.age.toString());
-            setBMI(profileData.bmi.toString());
-            setCurrentValue(profileData.goal);
-            setSelectedGoal(profileData.goal);
-            setIsDropdownDisabled(true);
-            setExistingData(profileData);
-            setIsNewProfile(false); // Set flag for existing profile
-          } else {
-            setIsNewProfile(true); // Set flag for new profile
-          }
-        }
-      } catch (error) {
-        // Handle error appropriately, check if it's a 404 indicating no profile found
-        if (error.response && error.response.status === 404) {
-          console.log('No profile found for userId:', userId);
-          setIsNewProfile(true); // Set flag for new profile
+      if (data.success) {
+        const profileData = data.profileinfo;
+        if (profileData) {
+          setWeight(profileData.weight.toString());
+          setHeight(profileData.height.toString());
+          setAge(profileData.age.toString());
+          setBMI(profileData.bmi.toString());
+          setCurrentValue(profileData.goal);
+          setSelectedGoal(profileData.goal);
+          setGender(profileData.gender);
+          setIsDropdownDisabled(true); // Enable the dropdowns when there is existing data
+          setIsGoalOpen(false);
+          setIsActivityLevelOpen(false);
+          setExistingData(profileData);
+          setisGenderopen(false)
+          setIsNewProfile(false);
+          setIsGenderRadioButtonDisabled(false);
+          console.log(profileData)
         } else {
-          console.error('Error fetching profile data:', error);
+          
+          setIsNewProfile(true);
+          setIsDropdownDisabled(false); // Enable the dropdowns when there is no existing data
         }
       }
-    };
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        setIsNewProfile(true);
+       
+      } else {
+        console.log(userId);
+        console.error('Error fetching profile data:', error);
+      }
+    }
+  };
 
-    fetchData();
-  }, [userId]);
+  fetchData();
+}, [userId]);
 
   useEffect(() => {
-    // Calculate BMI whenever weight, height, or age changes
     if (weight && height && age) {
       calculateBMI();
     }
@@ -82,11 +94,11 @@ export const ProfileScreen = ({ navigation, route }) => {
       let suggestedGoal = null;
 
       if (bmiValue < 18.5) {
-        suggestedGoal = 'GW'; // Gain Weight
+        suggestedGoal = 'GW';
       } else if (bmiValue >= 18.5 && bmiValue < 24.9) {
-        suggestedGoal = 'MW'; // Maintain Weight
+        suggestedGoal = 'MW';
       } else {
-        suggestedGoal = 'LW'; // Lose Weight
+        suggestedGoal = 'LW';
       }
 
       setCurrentValue(suggestedGoal);
@@ -97,7 +109,6 @@ export const ProfileScreen = ({ navigation, route }) => {
   };
 
   const handleEdit = () => {
-    // Check if there are existing data
     if (existingData) {
       Alert.alert(
         'Confirm Edit',
@@ -112,6 +123,8 @@ export const ProfileScreen = ({ navigation, route }) => {
             onPress: () => {
               setIsEditMode(true);
               setIsDropdownDisabled(false);
+              setIsGenderRadioButtonDisabled(false);
+              setisGenderopen(false);
             },
           },
         ]
@@ -119,19 +132,51 @@ export const ProfileScreen = ({ navigation, route }) => {
     } else {
       setIsEditMode(true);
       setIsDropdownDisabled(false);
+      setIsGenderRadioButtonDisabled(true);
+      setisGenderopen(false);
     }
   };
 
+  const calculateBMR = () => {
+    const weightInKg = parseFloat(weight);
+    const heightInCm = parseFloat(height);
+    const ageValue = parseInt(age);
+    let bmr = 0;
+
+    if (gender === 'male') {
+      bmr = 10 * weightInKg + 6.25 * heightInCm - 5 * ageValue + 5;
+    } else {
+      bmr = 10 * weightInKg + 6.25 * heightInCm - 5 * ageValue - 161;
+    }
+
+    return bmr;
+  };
+
+  const calculateTotalCalories = (bmr) => {
+    const activityFactors = {
+      sedentary: 1.2,
+      lightlyActive: 1.375,
+      moderatelyActive: 1.55,
+      veryActive: 1.725,
+      extraActive: 1.9,
+    };
+
+    const totalCalories = bmr * activityFactors[activityLevel];
+    return totalCalories;
+  };
+
   const handleCancel = () => {
-    // Reset form values and disable editing
     setWeight(existingData ? existingData.weight.toString() : '');
     setHeight(existingData ? existingData.height.toString() : '');
     setAge(existingData ? existingData.age.toString() : '');
     setBMI(existingData ? existingData.bmi.toString() : '');
     setCurrentValue(existingData ? existingData.goal : '');
     setSelectedGoal(existingData ? existingData.goal : '');
+    setGender(existingData.gender);
     setIsDropdownDisabled(true);
     setIsEditMode(false);
+    setisGenderopen(true);
+    setIsGenderRadioButtonDisabled(true);
   };
 
   const handleSaveOrUpdate = async () => {
@@ -143,6 +188,9 @@ export const ProfileScreen = ({ navigation, route }) => {
         return;
       }
 
+      const bmr = calculateBMR();
+      const totalCalories = calculateTotalCalories(bmr);
+
       const requestData = {
         userId: userId,
         age: parseInt(age),
@@ -150,6 +198,9 @@ export const ProfileScreen = ({ navigation, route }) => {
         height: parseInt(height),
         bmi: parseFloat(bmi),
         goal: selectedGoal,
+        gender: gender,
+        activityLevel: activityLevel,
+        calories: totalCalories,
       };
 
       console.log('Request Data:', requestData);
@@ -161,15 +212,7 @@ export const ProfileScreen = ({ navigation, route }) => {
         console.log('Information Submitted/Updated:', requestData);
         await updateProfileInformation();
 
-        // Call the function to update the profile information
-        
-        useEffect(() => {
-          // Check if userId exists before making the API call
-            getProfileInformation();     
-        });
-  
-        // Set isEditMode to true and fetch data again to recheck if there is information
-        setIsEditMode(true);
+        setIsEditMode(false);
         fetchData();
       }
     } catch (error) {
@@ -177,7 +220,6 @@ export const ProfileScreen = ({ navigation, route }) => {
       setLoading(false);
       console.log(error);
     } finally {
-      // Reset edit mode after saving or updating
       setIsEditMode(false);
     }
   };
@@ -218,7 +260,6 @@ export const ProfileScreen = ({ navigation, route }) => {
     }
   };
 
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <FlatList
@@ -232,25 +273,24 @@ export const ProfileScreen = ({ navigation, route }) => {
             </Text>
             <Card.Title />
             <Card.Content>
-            <TextInput
-  label="Weight (KG)"
-  value={weight}
-  onChangeText={(text) => setWeight(text)}
-  editable={isEditMode || isNewProfile} // Allow editing in edit mode or for a new profile
-/>
-<TextInput
-  label="Height (CM)"
-  value={height}
-  onChangeText={(text) => setHeight(text)}
-  editable={isEditMode || isNewProfile}
-/>
-<TextInput
-  label="Age"
-  value={age}
-  onChangeText={(text) => setAge(text)}
-  editable={isEditMode || isNewProfile}
-/>
-
+              <TextInput
+                label="Weight (KG)"
+                value={weight}
+                onChangeText={(text) => setWeight(text)}
+                editable={isEditMode || isNewProfile}
+              />
+              <TextInput
+                label="Height (CM)"
+                value={height}
+                onChangeText={(text) => setHeight(text)}
+                editable={isEditMode || isNewProfile}
+              />
+              <TextInput
+                label="Age"
+                value={age}
+                onChangeText={(text) => setAge(text)}
+                editable={isEditMode || isNewProfile}
+              />
 
               {bmi && (
                 <View>
@@ -260,12 +300,20 @@ export const ProfileScreen = ({ navigation, route }) => {
                 </View>
               )}
 
+<View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
+  <Text>Gender:</Text>
+  <RadioButton.Group onValueChange={(value) => setGender(value)} value={gender}>
+    <RadioButton.Item label="Male" value="male" disabled={isGenderRadioButtonDisabled || !isEditMode} />
+    <RadioButton.Item label="Female" value="female" disabled={isGenderRadioButtonDisabled || !isEditMode} />
+  </RadioButton.Group>
+</View>
+
               <View style={{ padding: 30 }}>
                 <DropDownPicker
                   items={items}
-                  open={isOpen}
+                  open={isGoalOpen}
                   disabled={isDropdownDisabled || !isEditMode}
-                  setOpen={() => setIsOpen(!isOpen)}
+                  setOpen={() => setIsGoalOpen(!isGoalOpen)}
                   value={currentValue}
                   setValue={(val) => {
                     setCurrentValue(val);
@@ -274,6 +322,26 @@ export const ProfileScreen = ({ navigation, route }) => {
                   maxHeight={200}
                   autoScroll
                   placeholder="Choose Goal"
+                />
+              </View>
+
+              <View style={{ padding: 30 }}>
+                <DropDownPicker
+                  items={[
+                    { label: 'Sedentary', value: 'sedentary' },
+                    { label: 'Lightly Active', value: 'lightlyActive' },
+                    { label: 'Moderately Active', value: 'moderatelyActive' },
+                    { label: 'Very Active', value: 'veryActive' },
+                    { label: 'Extra Active', value: 'extraActive' },
+                  ]}
+                  open={isActivityLevelOpen}
+                  disabled={isDropdownDisabled || !isEditMode}
+                  setOpen={() => setIsActivityLevelOpen(!isActivityLevelOpen)}
+                  value={activityLevel}
+                  setValue={(val) => setActivityLevel(val)}
+                  maxHeight={200}
+                  autoScroll
+                  placeholder="Choose Activity Level"
                 />
               </View>
 

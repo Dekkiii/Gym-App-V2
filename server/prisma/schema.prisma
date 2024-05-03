@@ -67,10 +67,13 @@ model Nutrition {
 }
 
 model Profile {
-   id             String   @id @default(auto()) @map("_id") @db.ObjectId 
-  height      Int
-  weight     Int
-  age        Int
-  bmi        Float
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId 
+  height         Int
+  weight         Int
+  age            Int
+  bmi            Float
   goal           String
+  activityLevel  String
+  gender         String  // New field for gender
+  calories       Float   // New field for calories
 }

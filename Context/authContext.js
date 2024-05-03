@@ -11,6 +11,7 @@ const AuthProvider = ({ children }) => {
   const [state, setState] = useState({
     user: null,
     token: "",
+    
   });
 
   // Initial local storage data
@@ -24,6 +25,7 @@ const AuthProvider = ({ children }) => {
           ...prevState,
           user: loginData?.user,
           token: loginData?.token,
+       
         }));
       } catch (error) {
         console.error("Error loading local storage data:", error);

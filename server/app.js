@@ -179,6 +179,36 @@ app.get('/exerciseinformation', async (req, res) => {
     res.status(500).send({ error: 'Internal server error' });
   }
 });
+app.get('/getProfile1', async (req, res) => {
+  try {
+    const { userId } = req.query;
+
+    if (!userId) {
+      console.log('Received data:', { userId });
+      return res.status(400).json({ error: 'userId parameter is missing' });
+    }
+
+    const profileInfo = await prisma.profile.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!profileInfo) {
+      console.log('Profile not found for userId:', userId);
+      return res.status(404).json({ success: false, error: 'Profile not found' });
+    }
+
+    console.log('Profile information sent:', profileInfo);
+    // Modify your /getProfile endpoint
+      return res.status(200).json({ profile: profileInfo });
+
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 app.get('/getProfile', async (req, res) => {
   try {
     const { userId } = req.query;
@@ -209,7 +239,6 @@ app.get('/getProfile', async (req, res) => {
   }
 });
 
-
 app.get('/exercises', async (req, res) => {
   try {
     const exercises = await prisma.exercises.findMany(); 
@@ -228,10 +257,11 @@ app.post('/bmiposting', [
   check('bmi').isNumeric().withMessage('BMI must be a number'),
   check('goal').isLength({ min: 1 }).withMessage('Goal is required'),
 ], async (req, res) => {
-  const { age, weight, height, bmi, goal, userId } = req.body;
+         // Include total calories
+        const { age, weight, height, bmi, goal, userId, gender,activityLevel, calories} = req.body;
 
   try {
-    console.log('Received data:', { age, weight, height, bmi, goal, userId }); // Log received data
+    console.log('Received data:', { age, weight, height, bmi, goal, userId, gender,activityLevel, calories }); // Log received data
 
     const errors = validationResult(req);
 
@@ -258,6 +288,9 @@ app.post('/bmiposting', [
           weight,
           bmi,
           goal,
+         gender,
+         activityLevel, 
+         calories
         },
       });
       
@@ -272,6 +305,9 @@ app.post('/bmiposting', [
           weight,
           bmi,
           goal,
+          gender,
+         activityLevel, 
+         calories
         },
       });
 

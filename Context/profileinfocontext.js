@@ -9,21 +9,24 @@ const ProfileProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState({});
   const [state, setState] = useContext(AuthContext);
-  const userId = state.userId;
+  const userId = state?.user?.id;
 
   const getProfileInformation = async () => {
     setLoading(true);
     try {
       // Make API call to get profile information based on the current login
-      const { data } = await axios.get('http:10.0.2.2:3000/getProfile', {
+      const { data } = await axios.get('https://serverrrr-3kbl.onrender.com/getProfile', {
         params: { userId },
       });
       setProfile(data.profile);
+      console.log(userId);
       console.log("Profile Information:", data.profile);
     } catch (error) {
       console.log(error);
+      console.log(userId);
       setLoading(false);
     }
+  
   };
 
   useEffect(() => {
