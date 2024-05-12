@@ -15,7 +15,7 @@ const ProfileProvider = ({ children }) => {
     setLoading(true);
     try {
       // Make API call to get profile information based on the current login
-      const { data } = await axios.get('https://serverrrr-3kbl.onrender.com/getProfile', {
+      const { data } = await axios.get('https://serverrrr-3kbl.onrender.com/getProfile1', {
         params: { userId },
       });
       setProfile(data.profile);

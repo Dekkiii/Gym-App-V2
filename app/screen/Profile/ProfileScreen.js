@@ -250,15 +250,23 @@ useEffect(() => {
   ];
 
   const handleLogout = async () => {
-    try {
-      await AsyncStorage.removeItem('@auth:token');
-      await AsyncStorage.removeItem('@auth:userId');
-      setState((prevState) => ({ ...prevState, token: null }));
-      navigation.navigate('Login');
-    } catch (error) {
-      console.error('Error logging out:', error);
-    }
-  };
+  try {
+    // Clear user data from AsyncStorage
+    await AsyncStorage.removeItem("@auth");
+    
+    // Clear the user and token state
+    setState({
+      user: null,
+      token: "",
+    });
+    
+    // Navigate to the 'Login' screen
+    navigation.navigate("Login");
+  } catch (error) {
+    console.error('Error logging out:', error);
+  }
+};
+
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -269,7 +277,7 @@ useEffect(() => {
         renderItem={() => (
           <View style={{ flex: 1, marginBottom: 20 }}>
             <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 20 }}>
-              Welcome {state.firstname}!
+              Welcome {state?.user?.firstname}!
             </Text>
             <Card.Title />
             <Card.Content>

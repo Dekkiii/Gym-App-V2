@@ -15,30 +15,30 @@ export const Loginscreen = ({ navigation }) => {
   const [userData, setUserData] = useState(null); // Add userData state
   const [loading, setLoading] = useState('false');
   const [showPassword, setShowPassword] = useState(false);
-
-  useEffect(() => {
-    const checkUserStatus = async () => {
-      try {
-        let storedUserData = await AsyncStorage.getItem("@auth"); 
-        
-        console.log("Stored Token:", storedUserData);
-    
-        if (storedUserData) {
-          console.log("Token found, navigating to 'Homes'");
-          setState((prevState) => ({ ...prevState, token: storedUserData }));
-          navigation.replace("Homes");
-        } else {
-          console.log("Token not found, navigating to 'Login'");
+  
+  const checkUserStatus = async () => {
+    try {
+      let storedUserData = await AsyncStorage.getItem("@auth"); 
+      
+      console.log("Stored Token:", storedUserData);
+  
+      if (storedUserData) {
+        console.log("Token found, navigating to 'Homes'");
+        setState((prevState) => ({ ...prevState, token: storedUserData }));
+        navigation.replace("Homes");
+      } else {
+        console.log("Token not found, navigating to 'Login'");
+        // Only navigate to the login screen if it's the first time checking
+        if (!state.token) {
           navigation.replace("Login");
         }
-      } catch (error) {
-        console.error("Error checking user status:", error);
-        navigation.replace("Login");
       }
-    };
-
-    checkUserStatus();
-  }, []);
+    } catch (error) {
+      console.error("Error checking user status:", error);
+      navigation.replace("Login");
+    }
+  };
+  
   
   const handleLogin = async () => {
     try {
