@@ -44,7 +44,17 @@ const Tab = createBottomTabNavigator();
 
 const HomeTabs = () => {
     return (
-      <Tab.Navigator>
+      <Tab.Navigator
+      tabBarOptions={{  // Change the active tab color here
+        inactiveTintColor: 'gray', // Change the inactive tab color here
+        style: {
+          backgroundColor: '#F6F5F2', // Optional: Change the background color of the tab bar
+        },
+        labelStyle: {
+          fontSize: 12, // Optional: Adjust the font size of tab labels
+        },
+      }}
+    >
       <Tab.Screen
         name="Home" // Change to a unique name like "HomeTab"
         component={Homescreen}
@@ -55,6 +65,7 @@ const HomeTabs = () => {
         }}
       />
       <Tab.Screen
+
         name="Profile screen" // Change to a unique name like "AboutTab"
         component={ProfileScreen}
         options={{headerShown: false,

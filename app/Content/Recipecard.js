@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import { SafeAreaView, ScrollView, View, Text, ImageBackground } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, ImageBackground,TouchableOpacity,Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Card, Title, Paragraph } from 'react-native-paper';
 import { PieChart } from 'react-native-chart-kit';
 import { RecipeContext } from '../../Context/recipeContext';
 import { Recipestylecard } from './recipe.stylecard';
+
+
 
 const RecipeCard = ({ nutrition, recipeinformations, recipeId }) => {
   const [recipes] = useContext(RecipeContext);
@@ -41,6 +43,16 @@ const RecipeCard = ({ nutrition, recipeinformations, recipeId }) => {
                 <Title style={{ textAlign: 'center' }}>Description</Title>
                 <Paragraph>{selectedrecipeinformation.description}</Paragraph>
                 <View style={Recipestylecard.separator} />
+                 <Title style={{ textAlign: 'center' }}>Know More!</Title>
+              
+                 <TouchableOpacity 
+                style={Recipestylecard.roundedButton} 
+                onPress={() => {
+                    // Open the URL in the web browser
+                    Linking.openURL(selectedrecipeinformation.toknowmore);
+                }}>
+                <Text style={Recipestylecard.buttonText}>Click me</Text>
+            </TouchableOpacity>
               </>
             ) : (
               <Text>Recipe information not found.</Text>

@@ -22,6 +22,16 @@ export const Recipestylecard = StyleSheet.create({
           flex: .8,
           
         },
+        roundedButton: {
+          backgroundColor: '#4CAF50',
+          padding: 15,
+          borderRadius: 12, // Rounded corners
+          alignItems: 'center',
+      },
+      buttonText: {
+        color: 'white',
+        fontSize: 16,
+    },
       image: {
         flex: 1,
         justifyContent: 'center',

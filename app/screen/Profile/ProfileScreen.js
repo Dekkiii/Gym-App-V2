@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { FlatList, SafeAreaView, View, Text, Alert } from 'react-native';
+import { FlatList, SafeAreaView, View, Text, Alert, ScrollView  } from 'react-native';
 import { Button, Card, TextInput, RadioButton } from 'react-native-paper';
 import DropDownPicker from 'react-native-dropdown-picker';
 import axios from 'axios';
@@ -152,7 +152,9 @@ useEffect(() => {
     return bmr;
   };
 
-  const calculateTotalCalories = (bmr) => {
+ 
+  const calculateTotalCalories = () => {
+    const bmr = calculateBMR();
     const activityFactors = {
       sedentary: 1.2,
       lightlyActive: 1.375,
@@ -161,7 +163,14 @@ useEffect(() => {
       extraActive: 1.9,
     };
 
-    const totalCalories = bmr * activityFactors[activityLevel];
+    let totalCalories = bmr * activityFactors[activityLevel];
+    
+    if (selectedGoal === 'GW') {
+      totalCalories += 300;
+    } else if (selectedGoal === 'LW') {
+      totalCalories -= 500;
+    }
+
     return totalCalories;
   };
 
@@ -270,15 +279,9 @@ useEffect(() => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        contentContainerStyle={{ flexGrow: 1 }}
-        data={['dummy']}
-        keyExtractor={() => 'dummyKey'}
-        renderItem={() => (
+      <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 20 }}>
           <View style={{ flex: 1, marginBottom: 20 }}>
-            <Text style={{ fontSize: 20, textAlign: 'center', marginVertical: 20 }}>
-              Welcome {state?.user?.firstname}!
-            </Text>
+            
             <Card.Title />
             <Card.Content>
               <TextInput
@@ -404,8 +407,8 @@ useEffect(() => {
               </Button>
             </Card.Content>
           </View>
-        )}
-      />
+  
+      </ScrollView>
     </SafeAreaView>
   );
 };

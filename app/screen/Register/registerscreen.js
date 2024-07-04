@@ -61,36 +61,38 @@ export const Registerscreen = ({ navigation }) => {
           <Card.Content>
             {/* Reuse the TextInput and Button components with consistent styling */}
             <TextInput
+            style={loginStyle.text}
               label="Firstname"
               value={firstname}
               onChangeText={(text) => setFirstname(text)}
             />
             <TextInput
+            style={loginStyle.text}
               label="Lastname"
               value={lastname}
               onChangeText={(text) => setLastname(text)}
             />
             <TextInput
+            style={loginStyle.text}
               label="Email"
               value={email}
               onChangeText={(text) => setEmail(text)}
               keyboardType="email-address"
             />
             <TextInput
+            style={loginStyle.text}
               label="Password"
               value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry={true}
             />
             <TextInput
+            style={loginStyle.text}
               label="Confirm Password"
               value={confirmPassword}
               onChangeText={(text) => setConfirmPassword(text)}
               secureTextEntry={true}
             />
-            <Button uppercase={false} style={loginStyle.forgotButton}>
-              Forgot email/password
-            </Button>
             <Button
               mode="contained"
               style={loginStyle.loginButton}

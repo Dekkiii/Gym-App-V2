@@ -125,13 +125,7 @@ export const Loginscreen = ({ navigation }) => {
                 />
               </TouchableOpacity>
             </View>
-            <Button
-              uppercase={false}
-              style={loginStyle.forgotButton}
-              onPress={() => navigation.navigate('ForgotPassword')}
-            >
-              Forgot Email/Password
-            </Button>
+         
             <Button mode="contained" style={loginStyle.loginButton} onPress={handleLogin}>
               Login
             </Button>

@@ -63,6 +63,7 @@ export const RecipeDetails = ({navigation, route}) => {
         <View style={Aboutstyle.content}>
            <Card >
        <Card.Actions  style={Aboutstyle.card}>
+       <Button onPress={() => navigation.navigate('RecipeDetails', { recipeId })}>Description</Button>
        <Button onPress={() => navigation.navigate('RecipeIngridients', { recipeId })}>Ingridients</Button>
        <Button onPress={() => navigation.navigate('RecipeSteps', { recipeId })}>Steps</Button>
        <Button onPress={() => navigation.navigate('RecipeNutrition', { recipeId })}>Nutrition</Button>

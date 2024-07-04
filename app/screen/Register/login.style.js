@@ -15,10 +15,15 @@ export const loginStyle = StyleSheet.create({
     backgroundColor: '#f0f0f0', // Set your desired card background color
     borderRadius: 10,
     elevation: 5,
+    padding : 5,
   },
   cardTitle: {
     color: "#007BFF",
   },
+  text: {
+      marginBottom: 10,
+  },
+
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',

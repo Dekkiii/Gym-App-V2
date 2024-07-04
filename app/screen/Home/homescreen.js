@@ -4,6 +4,7 @@ import { Card, Paragraph, Title } from 'react-native-paper';
 import { Homestyle } from './home.style';
 import { AuthContext } from '../../../Context/authContext';
 import { ProfileContext } from '../../../Context/profileinfocontext';
+import { StatusBar } from 'react-native';
 export const Homescreen = ({ navigation }) => {
   const [state] = useContext(AuthContext);
   const [profile] = useContext(ProfileContext);
@@ -36,7 +37,9 @@ export const Homescreen = ({ navigation }) => {
   
   );
   return (
-    <SafeAreaView style={Homestyle.content}>
+    <SafeAreaView className="flex-1 bg-white flex space-y-5" edges={['top']}>
+      <StatusBar style="dark"/>
+      
       <Card style={Homestyle.card2}>
        <Card.Content>
        <Text style={Homestyle.titleheader}>
@@ -52,14 +55,7 @@ export const Homescreen = ({ navigation }) => {
               {profile.calories}
               </Text>
 </View>
-<View style={Homestyle.row}> 
-<Text>
-       Goal: 
-              </Text>
-              <Text>
-              {profile.goal}
-              </Text>
-</View>
+
 <View style={Homestyle.row}> 
 <Text>
        Activity Level: 
@@ -71,6 +67,8 @@ export const Homescreen = ({ navigation }) => {
          
        </Card.Content>
        </Card>
+
+
        <FlatList
   data={menuItems}
   keyExtractor={(item) => item.screen}

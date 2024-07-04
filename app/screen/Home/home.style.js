@@ -5,7 +5,7 @@ export const Homestyle = StyleSheet.create({
     content: {
       padding: 0,
         flex: 1,
-        backgroundColor: "#354259",
+        backgroundColor: "#DDDDDD",
       },
       
         top: {
@@ -95,7 +95,7 @@ height: '100%',
       card2:{
        
         margin:10,
-        backgroundColor: "#FF8D29",
+        backgroundColor: "#DDDDDD",
       },
       Paragraph:{
         width: 500
